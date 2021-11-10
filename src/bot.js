@@ -27,16 +27,16 @@ const {
 
 bot.use(i18n.middleware());
 bot.use(session());
-bot.use(async (ctx, next) => attachUser(ctx, next));
-bot.use(async (ctx, next) => ignoreOldMessages(ctx, next));
-bot.use(async (ctx, next) => checkAgreement(ctx, next));
-bot.use(rateLimit(require('./config').limit));
+bot.use(attachUser());
+bot.use(ignoreOldMessages());
+bot.use(checkAgreement());
+bot.use(rateLimit(config.limit));
 
 bot.command(['s', 'start', 'help'], handleStart());
-bot.command('language', handleLanguage());
+bot.command(['lang', 'language'], handleLanguage());
 bot.command('agreement', handleAgreement());
 
-bot.action(/set_lang:(.*)/, handleLanguage());
+bot.action(/language:(.*)/, handleLanguage());
 bot.action(['yes', 'no'], handleAgreement());
 
 bot.on(['photo', 'document'], handleQuery());
