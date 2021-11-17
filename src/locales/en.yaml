@@ -7,12 +7,13 @@ service:
     🖼 Send me a selfie, image of a person or a ladscape, and I will try to draw it.
   change_language: "Choose interface language:"
   language_changed: 🇬🇧 Language changed.
-  image_downloading: 🕗 The image is downloading...
-  image_downloaded: ${type} <code>(${size})</code> The image has been downloaded. Processing may take a few seconds...
+  image_downloading: ${type} The image is downloading...
+  image_downloaded: 🧑🏻‍🎨 The image has been downloaded. Starting to draw...
   agreement: 📃 Do you accept usage of your processed images in @easydrawgallery channel?
   agreement_answered: ✅ Thank you. Now, you can keep using the bot. You can change your choice any time by /agreement command.
   change_agreement: Do you want your processed pictures to be appeared in @easydrawgallery?
-
+  choose_mode: "Choose the filter's mode:"
+  
 admin:
   new_user: |
     🆕 [<code>${id}</code>] <b><a href="tg://user?id=${id}">${name}</a></b> has just started the bot for the first time.
@@ -36,6 +37,7 @@ error:
   already_selected: ✋ You've already chosen this option.
 
 button:
+  settings: Settings
   b_yes: "${dot}Yes${dot}"
   b_no: "${dot}No${dot}"
   accept: Accept

@@ -11,5 +11,11 @@ module.exports = {
         limit: 1,
         onLimitExceeded: (ctx) => require('./scripts/common/replyWithError')(ctx, 1),
     },
-    handler_timeout: 100
+    handler_timeout: 100,
+    button: {
+        settings: [
+            'Settings', 
+            'Настройки'
+        ]
+    }
 };

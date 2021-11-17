@@ -22,7 +22,8 @@ const {
     handleCallback,
     handleLanguage,
     handleQuery,
-    handleAgreement
+    handleAgreement,
+    handleMode
 } = require('./handlers');
 
 bot.use(i18n.middleware());
@@ -36,8 +37,11 @@ bot.command(['s', 'start', 'help'], handleStart());
 bot.command(['lang', 'language'], handleLanguage());
 bot.command('agreement', handleAgreement());
 
+bot.hears(config.button.settings, handleMode());
+
 bot.action(/language:(.*)/, handleLanguage());
 bot.action(['yes', 'no'], handleAgreement());
+bot.action(/mode:(.*)/, handleMode());
 
 bot.on(['photo', 'document'], handleQuery());
 bot.on('callback_query', handleCallback());

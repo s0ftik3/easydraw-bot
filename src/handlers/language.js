@@ -28,7 +28,14 @@ module.exports = () => async (ctx) => {
             ctx.user.language = language;
             await ctx.user.save();
 
-            ctx.editMessageText(ctx.i18n.t('service.language_changed'));
+            await ctx.deleteMessage();
+
+            ctx.replyWithHTML(
+                ctx.i18n.t('service.language_changed'),
+                Markup.keyboard([ctx.i18n.t('button.settings')])
+                .resize()
+                .extra()
+            );
 
             ctx.answerCbQuery();
         } else {
