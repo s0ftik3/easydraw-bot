@@ -6,10 +6,6 @@
   "scripts": {
     "start": "node index.js"
   },
-  "engines": {
-    "node": "16.2.0",
-    "npm": "7.13.0"
-  },
   "keywords": [
     "telegram",
     "bot"
