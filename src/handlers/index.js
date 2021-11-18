@@ -3,5 +3,6 @@ module.exports = {
     handleCallback: require('./callback'),
     handleLanguage: require('./language'),
     handleQuery: require('./process'),
-    handleAgreement: require('./agreement')
+    handleAgreement: require('./agreement'),
+    handleMode: require('./mode')
 };

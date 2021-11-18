@@ -1,6 +1,5 @@
 'use strict';
 
-const User = require('../models/User');
 const Markup = require('telegraf/markup');
 const fs = require('fs');
 const path = require('path');
@@ -17,19 +16,26 @@ module.exports = () => async (ctx) => {
         const localesFolder = fs.readdirSync('./src/locales/');
         localesFolder.forEach((file) => {
             const localization = file.split('.')[0];
-            buttons.push(Markup.callbackButton(i18n.t(localization, 'language'), `set_lang:${localization}`));
+            buttons.push(Markup.callbackButton(i18n.t(localization, 'language'), `language:${localization}`));
         });
 
-        const keyboard = buttons.filter((e) => e.callback_data != `set_lang:${ctx.user.language}`);
+        const keyboard = buttons.filter((e) => e.callback_data != `language:${ctx.user.language}`);
 
         if (ctx.updateType === 'callback_query') {
             const language = ctx.match[0].split(':')[1];
             ctx.i18n.locale(language);
 
-            await User.updateOne({ id: ctx.from.id }, { $set: { language: language } }, () => {});
             ctx.user.language = language;
+            await ctx.user.save();
 
-            ctx.editMessageText(ctx.i18n.t('service.language_changed'));
+            await ctx.deleteMessage();
+
+            ctx.replyWithHTML(
+                ctx.i18n.t('service.language_changed'),
+                Markup.keyboard([ctx.i18n.t('button.settings')])
+                .resize()
+                .extra()
+            );
 
             ctx.answerCbQuery();
         } else {

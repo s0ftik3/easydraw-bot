@@ -1,7 +1,6 @@
 const axios = require('axios');
 const config = require('../config');
 const FormData = require('form-data');
-const byteSize = require('byte-size');
 const replyWithError = require('../scripts/common/replyWithError');
 const sendLog = require('../scripts/common/sendLog');
 
@@ -21,12 +20,12 @@ async function handlePhoto(ctx) {
     try {
         const fileId = ctx.message.photo.reverse()[0].file_id;
 
-        const standbyMessage = await ctx.reply(ctx.i18n.t('service.image_downloading'), {
+        const standbyMessage = await ctx.reply(ctx.i18n.t('service.image_downloading', { type: '🖼' }), {
             parse_mode: 'HTML'
         });
         
         const originalPhoto = await getMedia({ ctx, fileId, messageId: standbyMessage.message_id, type: 'photo' }).catch(err => err);
-        const processedPhoto = await processPhoto({ image: originalPhoto, filter: Math.floor(Math.random() * 2) }).catch(err => err);
+        const processedPhoto = await processPhoto({ image: originalPhoto, filter: ctx.user.mode }).catch(err => err);
 
         if (originalPhoto?.code === 6) return replyWithError(ctx, 6);
         if (originalPhoto?.code === 7) return replyWithError(ctx, 7);
@@ -65,12 +64,12 @@ async function handleDocument(ctx) {
         const isAcceptable = checkMediaType(mime, ctx);
 
         if (isAcceptable) {
-            const standbyMessage = await ctx.reply(ctx.i18n.t('service.image_downloading'), {
+            const standbyMessage = await ctx.reply(ctx.i18n.t('service.image_downloading', { type: '📄' }), {
                 parse_mode: 'HTML'
             });
 
             const originalPhoto = await getMedia({ ctx, fileId, messageId: standbyMessage.message_id, type: 'document' }).catch(err => err);
-            const processedPhoto = await processPhoto({ image: originalPhoto, filter: Math.floor(Math.random() * 2) }).catch(err => err);
+            const processedPhoto = await processPhoto({ image: originalPhoto, filter: ctx.user.mode }).catch(err => err);
 
             if (originalPhoto?.code === 6) return replyWithError(ctx, 6);
             if (originalPhoto?.code === 7) return replyWithError(ctx, 7);
@@ -142,10 +141,7 @@ async function getMedia(data) {
                         data.ctx.from.id, 
                         data.messageId,
                         0,
-                        data.ctx.i18n.t('service.image_downloaded', {
-                            type: data.type === 'photo' ? '🖼' : '📄',
-                            size: byteSize(file.file_size)
-                        }), 
+                        data.ctx.i18n.t('service.image_downloaded'), 
                         { parse_mode: 'HTML' }
                     ).catch(err => console.error(err));
 

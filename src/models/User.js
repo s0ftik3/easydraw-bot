@@ -20,10 +20,10 @@ const userSchema = new mongoose.Schema({
         required: false,
         default: true
     },
-    filter: {
+    mode: {
         type: Number,
         required: false,
-        default: 1
+        default: 0
     },
     processed: {
         type: Number,
