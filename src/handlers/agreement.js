@@ -5,16 +5,32 @@ const updateUserAgreement = require('../scripts/database/updateUserAgreement');
 
 module.exports = () => async (ctx) => {
     try {
-        if (ctx.updateType === 'callback_query') {
+        const action = ctx.match;
+
+        if (action === 'agreement') {
+            await ctx.editMessageText(ctx.i18n.t('service.change_agreement'), {
+                reply_markup: Markup.inlineKeyboard([
+                    [
+                        Markup.callbackButton(ctx.i18n.t('button.b_yes', { dot: ctx.user.agreement ? ' · ' : '' }), 'yes'),
+                        Markup.callbackButton(ctx.i18n.t('button.b_no', { dot: !ctx.user.agreement ? ' · ' : '' }), 'no')
+                    ],
+                    [
+                        Markup.callbackButton(ctx.i18n.t('button.back'), 'back:settings')
+                    ]
+                ])
+            });
+
+            return ctx.answerCbQuery();
+        } else {
             const translation = {
                 yes: true,
                 no: false
             };
-            const action = translation[ctx.match];
+            const subAction = translation[ctx.match];
 
-            if (action === ctx.user.agreement) return ctx.answerCbQuery(ctx.i18n.t('error.already_selected'), true);
+            if (subAction === ctx.user.agreement) return ctx.answerCbQuery(ctx.i18n.t('error.already_selected'), true);
 
-            if (action) {
+            if (subAction) {
                 await updateUserAgreement(ctx.from.id, true);
                 ctx.user.agreement = true;
                 await ctx.user.save();
@@ -24,26 +40,20 @@ module.exports = () => async (ctx) => {
                 await ctx.user.save();
             }
 
-            ctx.editMessageText(ctx.i18n.t('service.change_agreement'), {
+            await ctx.editMessageText(ctx.i18n.t('service.change_agreement'), {
                 reply_markup: Markup.inlineKeyboard([
                     [
                         Markup.callbackButton(ctx.i18n.t('button.b_yes', { dot: ctx.user.agreement ? ' · ' : '' }), 'yes'),
                         Markup.callbackButton(ctx.i18n.t('button.b_no', { dot: !ctx.user.agreement ? ' · ' : '' }), 'no')
+                    ],
+                    [
+                        Markup.callbackButton(ctx.i18n.t('button.back'), 'back:settings')
                     ]
                 ]),
                 parse_mode: 'HTML'
             });
 
-            await ctx.answerCbQuery();
-        } else {
-            return ctx.replyWithHTML(ctx.i18n.t('service.change_agreement'), {
-                reply_markup: Markup.inlineKeyboard([
-                    [
-                        Markup.callbackButton(ctx.i18n.t('button.b_yes', { dot: ctx.user.agreement ? ' · ' : '' }), 'yes'),
-                        Markup.callbackButton(ctx.i18n.t('button.b_no', { dot: !ctx.user.agreement ? ' · ' : '' }), 'no')
-                    ]
-                ])
-            });
+            return ctx.answerCbQuery();
         }
     } catch (err) {
         console.error(err);

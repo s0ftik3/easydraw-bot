@@ -13,7 +13,8 @@ service:
   agreement_answered: ✅ Thank you. Now, you can keep using the bot. You can change your choice any time by /agreement command.
   change_agreement: Do you want your processed pictures to be appeared in @easydrawgallery?
   choose_mode: "Choose the filter's mode:"
-  
+  settings: You can set up your bot here.
+
 admin:
   new_user: |
     🆕 [<code>${id}</code>] <b><a href="tg://user?id=${id}">${name}</a></b> has just started the bot for the first time.
@@ -42,3 +43,7 @@ button:
   b_no: "${dot}No${dot}"
   accept: Accept
   deny: Deny
+  mode: Filter
+  language: Language
+  agreement: Agreement
+  back: ‹ Back
