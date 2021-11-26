@@ -2,7 +2,7 @@ language: 🇬🇧 English
 
 service:
   greeting: |
-    <a href="https://i.ibb.co/7Vpt1fW/preview.png">🎨</a> Hey, <b>${name}</b>! I can process your photo via AI in different styles (only one is available, so far).
+    <a href="https://i.ibb.co/7Vpt1fW/preview.png">🎨</a> Hey, <b>${name}</b>! I can process your photo via AI in different styles.
 
     🖼 Send me a selfie, image of a person or a ladscape, and I will try to draw it.
   change_language: "Choose interface language:"
