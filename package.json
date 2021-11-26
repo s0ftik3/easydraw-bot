@@ -1,6 +1,6 @@
 {
   "name": "easydraw-bot",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Create portraits out of your selfies via AI based Telegram bot.",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,6 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.24.0",
-    "dotenv": "^10.0.0",
     "form-data": "^4.0.0",
     "moment": "^2.29.1",
     "mongoose": "^5.13.4",

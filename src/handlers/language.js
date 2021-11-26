@@ -19,9 +19,18 @@ module.exports = () => async (ctx) => {
             buttons.push(Markup.callbackButton(i18n.t(localization, 'language'), `language:${localization}`));
         });
 
+        buttons.push(Markup.callbackButton(ctx.i18n.t('button.back'), 'back:settings'));
         const keyboard = buttons.filter((e) => e.callback_data != `language:${ctx.user.language}`);
 
-        if (ctx.updateType === 'callback_query') {
+        const action = ctx.match;
+
+        if (action === 'language') {
+            await ctx.editMessageText(ctx.i18n.t('service.change_language'), {
+                reply_markup: Markup.inlineKeyboard(keyboard, { columns: 2 })
+            });
+
+            return ctx.answerCbQuery();
+        } else {
             const language = ctx.match[0].split(':')[1];
             ctx.i18n.locale(language);
 
@@ -30,18 +39,14 @@ module.exports = () => async (ctx) => {
 
             await ctx.deleteMessage();
 
-            ctx.replyWithHTML(
+            await ctx.replyWithHTML(
                 ctx.i18n.t('service.language_changed'),
                 Markup.keyboard([ctx.i18n.t('button.settings')])
                 .resize()
                 .extra()
             );
 
-            ctx.answerCbQuery();
-        } else {
-            ctx.replyWithHTML(ctx.i18n.t('service.change_language'), {
-                reply_markup: Markup.inlineKeyboard(keyboard, { columns: 2 })
-            });
+            return ctx.answerCbQuery();
         }
     } catch (err) {
         console.error(err);

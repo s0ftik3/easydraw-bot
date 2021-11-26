@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const Telegraf = require('telegraf');
 const config = require('./config');
 const bot = new Telegraf(config.token, { handlerTimeout: config.handler_timeout });
@@ -25,7 +23,9 @@ const {
     handleLanguage,
     handleQuery,
     handleAgreement,
-    handleMode
+    handleMode,
+    handleSettings,
+    handleBack
 } = require('./handlers');
 
 bot.use(i18n.middleware());
@@ -36,14 +36,16 @@ bot.use(checkAgreement());
 bot.use(rateLimit(config.limit));
 
 bot.command(['s', 'start', 'help'], handleStart());
-bot.command(['lang', 'language'], handleLanguage());
-bot.command('agreement', handleAgreement());
 
-bot.hears(config.button.settings, handleMode());
+bot.hears(config.button.settings, handleSettings());
 
+bot.action('mode', handleMode());
+bot.action('language', handleLanguage());
+bot.action('agreement', handleAgreement());
 bot.action(/language:(.*)/, handleLanguage());
 bot.action(['yes', 'no'], handleAgreement());
 bot.action(/mode:(.*)/, handleMode());
+bot.action(/back:(.*)/, handleBack());
 
 bot.on(['photo', 'document'], handleQuery());
 bot.on('callback_query', handleCallback());

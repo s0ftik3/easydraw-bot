@@ -4,5 +4,7 @@ module.exports = {
     handleLanguage: require('./language'),
     handleQuery: require('./process'),
     handleAgreement: require('./agreement'),
-    handleMode: require('./mode')
+    handleMode: require('./mode'),
+    handleSettings: require('./settings'),
+    handleBack: require('./back')
 };
