@@ -8,7 +8,7 @@ module.exports = () => async (ctx) => {
 
         switch (direction) {
             case 'settings':
-                return ctx.editMessageText(ctx.i18n.t('service.settings'), {
+                await ctx.editMessageText(ctx.i18n.t('service.settings'), {
                     reply_markup: Markup.inlineKeyboard([
                         [
                             Markup.callbackButton(ctx.i18n.t('button.mode'), 'mode'),
@@ -19,6 +19,8 @@ module.exports = () => async (ctx) => {
                         ]
                     ])
                 });
+
+                await ctx.answerCbQuery();
                 break;
             default:
                 console.log('No action determined');
