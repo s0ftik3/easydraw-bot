@@ -4,7 +4,7 @@ service:
   greeting: |
     <a href="https://i.ibb.co/7Vpt1fW/preview.png">🎨</a> Hey, <b>${name}</b>! I can process your photo via AI in different styles.
 
-    🖼 Send me a selfie, image of a person or a ladscape, and I will try to draw it.
+    🖼 Send me a selfie or image of a person, and I will try to draw it.
   change_language: "Choose interface language:"
   language_changed: 🇬🇧 Language changed.
   image_downloading: ${type} The image is downloading...
