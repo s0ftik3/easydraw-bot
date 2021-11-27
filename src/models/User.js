@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     beta: {
         type: Boolean,
         required: false,
-        default: true
+        default: false
     },
     mode: {
         type: Number,

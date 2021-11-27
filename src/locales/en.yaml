@@ -10,7 +10,7 @@ service:
   image_downloading: ${type} The image is downloading...
   image_downloaded: 🧑🏻‍🎨 The image has been downloaded. Starting to draw...
   agreement: 📃 Do you accept usage of your processed images in @easydrawgallery channel?
-  agreement_answered: ✅ Thank you. Now, you can keep using the bot. You can change your choice any time by /agreement command.
+  agreement_answered: ✅ Thank you. Now, you can keep using the bot. You can change your choice any time in settings
   change_agreement: Do you want your processed pictures to be appeared in @easydrawgallery?
   choose_mode: "Choose the filter's mode:"
   settings: You can set up your bot here.
@@ -33,7 +33,7 @@ error:
   failed_check_media_extension: 😥 I couldn't define the file's extension.
   media_too_big: ✋ Your image is too big! Try to compress it or send some other one.
   failed_download_tg_media: 😥 Something went wrong. I couldn't download the image, try to send some other one.
-  face_not_found: 👀 There is no face detected in the image, try to switch to landscape mode using 🖼 button below.
+  face_not_found: 👀 There is no face detected in the image.
   limit_exceeded: 👮🏻 Slow down, cowboy.
   already_selected: ✋ You've already chosen this option.
 
@@ -46,4 +46,5 @@ button:
   mode: Filter
   language: Language
   agreement: Agreement
+  channel: Developer's Channel
   back: ‹ Back
