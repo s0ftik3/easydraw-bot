@@ -3,7 +3,7 @@
 module.exports = () => {
     return async (ctx, next) => {
         try {
-            if (new Date().getTime() / 1000 - (ctx?.message?.date || ctx?.update?.callback_query?.message?.date) < (5 * 60)) {
+            if (new Date().getTime() / 1000 - (ctx?.message?.date) < (5 * 60)) {
                 return next();
             } else {
                 console.info(

@@ -16,9 +16,6 @@ module.exports = () => async (ctx) => {
                         ],
                         [
                             Markup.callbackButton(ctx.i18n.t('button.agreement'), 'agreement')
-                        ],
-                        [
-                            Markup.urlButton(ctx.i18n.t('button.channel'), 'https://t.me/softik')
                         ]
                     ])
                 });
